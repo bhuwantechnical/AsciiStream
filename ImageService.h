@@ -22,12 +22,17 @@ class ImageService
 private:
 	
 public:
+	
+	
 	cv::Mat imageReader( std::string path);
 	cv::Mat imageResizer(cv::Mat image);
 	void  loadImage(cv::Mat image);
   cv::Vec3b** convertImageToPixelArr(cv::Mat image);
-  double** convertToBrightnessMat(cv::Vec3b** pixelarr, cv::Mat image);
+  /*double** convertToBrightnessMat(cv::Vec3b** pixelarr, cv::Mat image);*/
+  float** convertToBrightnessArray(cv::Vec3b** pixelArray, cv::Mat image);
+  
   void deletePixelArray(cv::Vec3b** pixelArray, int rows);
+  void deleteAveragelArray(float** averageArray, int rows);
 
 	
 };

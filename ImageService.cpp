@@ -58,6 +58,7 @@ cv::Mat ImageService::imageReader( std::string path)
 {
 	cv::Mat image;
 	image = cv::imread(path);
+
 	/*if (image.empty())
 	{
 		cin=
@@ -69,7 +70,7 @@ cv::Mat ImageService::imageReader( std::string path)
 cv::Mat ImageService::imageResizer(cv::Mat image)
 {
 	cv::Mat resizedImage;
-	cv::resize(image, resizedImage, cv::Size(800,600));
+	cv::resize(image, resizedImage, cv::Size(700,200));
 	return resizedImage;
 
 
@@ -78,7 +79,7 @@ cv::Mat ImageService::imageResizer(cv::Mat image)
 void  ImageService::loadImage(cv::Mat resizedImage)
 {
 	cv::imshow("Image", resizedImage);
-	cv::waitKey(0);
+	cv::waitKey(1);
 
 }
 cv::Vec3b** ImageService::convertImageToPixelArr(cv::Mat image)
@@ -115,32 +116,54 @@ cv::Vec3b** ImageService::convertImageToPixelArr(cv::Mat image)
 	
 }
 
-double**  ImageService::convertToBrightnessMat(cv::Vec3b** pixelarr,cv::Mat image)
-{    
-	int row = image.rows;
-	int col = image.cols;
-	double  ** brightnessMat = new double* [row];
-		for (int i = 0; i < row; i++)
-		{
-			 brightnessMat[i] = new double[col];
-		}
-		for (int i = 0; i < row; i++)
-		{
-			for (int j = 0; i < col;j++)
-			{
-				brightnessMat[i][j] = (0.21 * pixelarr[i][j][0]) + (0.72 * pixelarr[i][j][1] )+ (0.07 * pixelarr[i][j][2]);
-			}
-		}
-		for (int i = 0; i < row; i++)
-		{
-			for (int j = 0; i < col;j++)
-			{
-				std::cout << brightnessMat[i][j];
-			}
-		}
-		return brightnessMat;
-}
+//double**  ImageService::convertToBrightnessMat(cv::Vec3b** pixelarr,cv::Mat image)
+//{    
+//	int row = image.rows;
+//	int col = image.cols;
+//	double  ** brightnessMat = new double* [row];
+//		for (int i = 0; i < row; i++)
+//		{
+//			 brightnessMat[i] = new double[col];
+//		}
+//		for (int i = 0; i < row; i++)
+//		{
+//			for (int j = 0; j < col;j++)
+//			{
+//				brightnessMat[i][j] = (0.21 * pixelarr[i][j][0]) + (0.72 * pixelarr[i][j][1] )+ (0.07 * pixelarr[i][j][2]);
+//			}
+//		}
+//		for (int i = 0; i < row; i++)
+//		{
+//			for (int j = 0;j < col;j++)
+//			{
+//				std::cout << brightnessMat[i][j];
+//			}
+//		}
+//		return brightnessMat;
+float** ImageService::convertToBrightnessArray(cv::Vec3b** pixelArray,cv::Mat image)
+{
+	int rows = image.rows;
+	int columns = image.cols;
 
+	
+
+	float** averageArray = new float* [rows];
+	for (int i = 0; i < rows; i++)
+	{
+		averageArray[i] = new float[columns];
+	}
+
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < columns; j++)
+		{
+			averageArray[i][j] = (pixelArray[i][j][0] + pixelArray[i][j][1] + pixelArray[i][j][2])/3.0;
+			
+		}
+		std::cout <<std:: endl;
+	}
+	return averageArray;
+}
 
 	void ImageService::deletePixelArray(cv::Vec3b** pixelArray, int rows)
 	{
@@ -150,3 +173,13 @@ double**  ImageService::convertToBrightnessMat(cv::Vec3b** pixelarr,cv::Mat imag
 		}
 		delete[] pixelArray;
 	}
+
+	void ImageService::deleteAveragelArray(float** averageArray, int rows)
+	{
+		for (int i = 0; i < rows; ++i)
+		{
+			delete[] averageArray[i];
+		}
+		delete[] averageArray;
+	}
+	

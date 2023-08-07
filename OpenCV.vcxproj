@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClCompile Include="AsciiService.cpp" />
     <ClCompile Include="ImageService.cpp" />
+    <ClCompile Include="VideoService.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="test.cpp" />
@@ -147,6 +148,7 @@
   <ItemGroup>
     <ClInclude Include="AsciiService.h" />
     <ClInclude Include="ImageService.h" />
+    <ClInclude Include="VideoService.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
